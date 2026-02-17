@@ -1,12 +1,17 @@
 import sys
 import config
 
-from ollama import chat
+from utils.ingestion import pdf_to_text
 
+from ollama import chat
 
 def main(query: str | None):
     if query == None:
         query = config.DEFAULT_QUERY
+
+    # Ingestion step
+    raw_text = pdf_to_text(config.PDF_PATH)
+    print(raw_text)
 
     response = chat(
         model=config.CHAT_MODEL,
@@ -20,7 +25,6 @@ def main(query: str | None):
 
     answer = response.message.content or ""
     print(answer)
-
 
 
 if __name__ == "__main__":
