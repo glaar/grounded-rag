@@ -2,6 +2,7 @@ import sys
 import config
 
 from utils.ingestion import pdf_to_text, chunk_text
+from utils.embedding import embed_chunks
 
 from ollama import chat
 
@@ -15,7 +16,10 @@ def main(query: str | None):
 
     # Split text into chunks
     chunks = chunk_text(raw_text, config.CHUNK_SIZE, config.CHUNK_OVERLAP)
-    print(chunks)
+
+    #Embeddings
+    result = embed_chunks(chunks)
+    print(type(result))
 
 
 if __name__ == "__main__":
