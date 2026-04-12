@@ -4,12 +4,12 @@ import config
 from utils.ingestion import pdf_to_text, chunk_text
 from utils.embedding import embed_chunks
 
-from ollama import chat
+from utils.vector_store import in_memory_vector_store, query
 
 
-def main(query: str | None):
-    if query == None:
-        query = config.DEFAULT_QUERY
+def main(user_input: str | None):
+    if user_input == None:
+        user_input = config.DEFAULT_QUERY
 
     # Ingestion
     raw_text = pdf_to_text(config.PDF_PATH)
@@ -18,8 +18,17 @@ def main(query: str | None):
     chunks = chunk_text(raw_text, config.CHUNK_SIZE, config.CHUNK_OVERLAP)
 
     #Embeddings
-    result = embed_chunks(chunks)
-    print(type(result))
+    embeddings = embed_chunks(chunks)
+
+    #Collection store
+    collection = in_memory_vector_store(embeddings, chunks)
+
+    #Fetch relevant chunks
+    results = query(user_input, collection)
+
+
+
+    
 
 
 if __name__ == "__main__":

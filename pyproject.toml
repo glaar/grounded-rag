@@ -4,7 +4,8 @@ version = "0.1.0"
 requires-python = ">=3.14,<3.15"
 dependencies = [
   "ollama",
-  "pdfplumber"
+  "pdfplumber",
+  "chromadb"
 ]
 
 [tool.pytest.ini_options]
