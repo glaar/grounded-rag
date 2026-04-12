@@ -2,17 +2,17 @@ from utils.rerank import rerank
 
 
 CHUNKS = [
-    "Northwind Wizardry has a strict policy on employee conduct.",
-    "All employees must submit expense reports within 30 days.",
-    "Employees are entitled to 25 days of annual leave.",
+    "Starbase Omega has a strict policy on crew conduct.",
+    "All crew members must undergo a full medical scan every 30 days.",
+    "Crew members are entitled to 3 meals per day via the replicator.",
 ]
 
 
 def test_rerank_returns_strings():
-    results = rerank("employee policy", CHUNKS)
+    results = rerank("crew medical policy", CHUNKS)
     assert all(isinstance(r, str) for r in results)
 
 
 def test_rerank_respects_top_n():
-    results = rerank("employee policy", CHUNKS, top_n=2)
+    results = rerank("crew medical policy", CHUNKS, top_n=2)
     assert len(results) <= 2
