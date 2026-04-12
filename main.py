@@ -5,6 +5,7 @@ from utils.ingestion import pdf_to_text, chunk_text
 from utils.embedding import embed_chunks
 
 from utils.vector_store import in_memory_vector_store, query
+from utils.rerank import rerank
 
 
 def main(user_input: str | None):
@@ -24,11 +25,11 @@ def main(user_input: str | None):
     collection = in_memory_vector_store(embeddings, chunks)
 
     #Fetch relevant chunks
-    results = query(user_input, collection)
+    candidates = query(user_input, collection)
 
+    # Rerank candidates
+    reranked = rerank(user_input, candidates)
 
-
-    
 
 
 if __name__ == "__main__":

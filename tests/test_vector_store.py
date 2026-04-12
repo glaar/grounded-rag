@@ -1,5 +1,4 @@
-from utils.embedding import embed_chunks
-from utils.vector_store import in_memory_vector_store, query
+from utils.vector_store import query
 
 
 def test_in_memory_vector_store(collection, chunks):
