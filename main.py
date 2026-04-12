@@ -6,6 +6,7 @@ from utils.embedding import embed_chunks
 
 from utils.vector_store import in_memory_vector_store, query
 from utils.rerank import rerank
+from utils.llm import answer
 
 
 def main(user_input: str | None):
@@ -30,8 +31,9 @@ def main(user_input: str | None):
     # Rerank candidates
     reranked = rerank(user_input, candidates)
 
-
-
+    # Generate answer
+    response = answer(user_input, reranked)
+    print(response)
 if __name__ == "__main__":
     user_input = sys.argv[1] if len(sys.argv) > 1 else None
     main(user_input)
