@@ -23,11 +23,13 @@ def test_no_chunks_on_empty_string():
     chunks = chunk_text("", max_size=MAX_SIZE, overlap=OVERLAP)
     assert len(chunks) == 0, "Expected no chunks for empty string"
 
-def test_overlap(sample_text):
-    chunks = chunk_text(sample_text, max_size=MAX_SIZE, overlap=OVERLAP)
+def test_overlap():
+    # Use short paragraphs so overlap logic is triggered
+    text = "Short one.\n\nShort two.\n\nShort three."
+    chunks = chunk_text(text, max_size=25, overlap=5)
 
     for i in range(1, len(chunks)):
-        tail = chunks[i-1][-OVERLAP:]
+        tail = chunks[i-1][-5:]
         assert tail in chunks[i]
 
 def test_single_paragraph():
