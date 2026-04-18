@@ -34,6 +34,10 @@ def main(user_input: str | None):
     # Generate answer
     response = answer(user_input, reranked)
     print(response)
+
+
+
+
 if __name__ == "__main__":
     user_input = sys.argv[1] if len(sys.argv) > 1 else None
     main(user_input)

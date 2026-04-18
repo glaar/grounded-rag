@@ -19,4 +19,17 @@ EVAL_DATASET = [
         "question": "How many hours of life support do emergency batteries provide during a power failure?",
         "expected": "72",
     },
+    # Unanswerable questions — the system should say it cannot answer
+    {
+        "question": "What is the annual budget of Starbase Omega?",
+        "expected": "cannot",
+    },
+    {
+        "question": "Who was the chief engineer before the current one?",
+        "expected": "cannot",
+    },
+    {
+        "question": "What is the maximum speed of the station's quantum drive?",
+        "expected": "cannot",
+    },
 ]

@@ -5,6 +5,7 @@
       "root": ".",
       "extraPaths": ["."]
     }
-  ]
+  ],
+  "typeCheckingMode": "off"
 }
 

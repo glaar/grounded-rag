@@ -43,17 +43,24 @@ def eval_loop(entries, get_response):
 def run_eval():
     collection = build_pipeline()
 
-    print("=== With RAG context ===")
+    factual = [e for e in EVAL_DATASET if e["expected"] != "cannot"]
+    unanswerable = [e for e in EVAL_DATASET if e["expected"] == "cannot"]
+
     def with_context(question):
         candidates = query(question, collection)
         reranked = rerank(question, candidates)
         return answer(question, reranked)
 
-    passed, total = eval_loop(EVAL_DATASET, with_context)
+    print("=== Factual accuracy (with RAG context) ===")
+    passed, total = eval_loop(factual, with_context)
     print(f"\n{passed}/{total} passed")
 
-    print("\n=== Without context (LLM only) ===")
-    passed, total = eval_loop(EVAL_DATASET, lambda q: answer(q, []))
+    print("\n=== Hallucination resistance (with RAG context) ===")
+    passed, total = eval_loop(unanswerable, with_context)
+    print(f"\n{passed}/{total} passed")
+
+    print("\n=== Hallucination resistance (no context) ===")
+    passed, total = eval_loop(unanswerable, lambda q: answer(q, []))
     print(f"\n{passed}/{total} passed")
 
 
