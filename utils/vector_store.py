@@ -2,6 +2,7 @@ from typing import Sequence
 
 import chromadb
 
+import config
 from utils.embedding import embed_chunks
 
 def in_memory_vector_store(embeddings: Sequence[Sequence[float]], chunks: list[str]):
@@ -16,5 +17,5 @@ def in_memory_vector_store(embeddings: Sequence[Sequence[float]], chunks: list[s
 
 def query(question: str, collection) -> list[str]:
     query_embeddings = embed_chunks([question]) 
-    results = collection.query(query_embeddings=query_embeddings, n_results=3)
+    results = collection.query(query_embeddings=query_embeddings, n_results=config.TOP_K)
     return results["documents"][0]
