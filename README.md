@@ -16,7 +16,7 @@ PDF → chunk → embed → vector store → query → rerank → LLM answer
 - **Reranking**: FlashRank — moves most relevant chunk to rank 1 before passing to LLM
 - **LLM**: `qwen3:4b` via Ollama
 
-Reranking is motivated by findings from Liu et al. (2023): LLMs perform better when relevant context appears at the start of the prompt rather than in the middle.
+Reranking ensures the most relevant chunk appears first in the prompt, addressing the positional bias identified by Liu et al. (2023), who found that LLMs perform significantly worse when relevant context appears in the middle of the input.
 
 ## Eval
 
